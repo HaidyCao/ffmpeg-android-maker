@@ -18,6 +18,9 @@ fi
 ADDITIONAL_COMPONENTS=
 for LIBARY_NAME in ${FFMPEG_EXTERNAL_LIBRARIES[@]}
 do
+  if [[ ${LIBARY_NAME} == "libass" ]] || [[ ${LIBARY_NAME} == "libharfbuzz" ]] || [[ ${LIBARY_NAME} == "libfreetype" ]] || [[ ${LIBARY_NAME} == "libfribidi" ]]; then 
+    continue
+  fi
   ADDITIONAL_COMPONENTS+=" --enable-$LIBARY_NAME"
 done
 
@@ -42,8 +45,18 @@ DEP_LD_FLAGS="-L${BUILD_DIR_EXTERNAL}/${ANDROID_ABI}/lib $FFMPEG_EXTRA_LD_FLAGS"
   --extra-cflags="-O3 -fPIC $DEP_CFLAGS" \
   --extra-ldflags="$DEP_LD_FLAGS" \
   --enable-shared \
-  --disable-static \
+  --enable-static \
   --disable-vulkan \
+  --enable-jni \
+  --enable-hwaccels \
+  --enable-mediacodec \
+  --enable-decoder=h264_mediacodec \
+  --enable-decoder=av1_mediacodec \
+  --enable-decoder=hevc_mediacodec \
+  --enable-decoder=mpeg2_mediacodec \
+  --enable-decoder=mpeg4_mediacodec \
+  --enable-decoder=vp8_mediacodec \
+  --enable-decoder=vp9_mediacodec \
   --pkg-config=${PKG_CONFIG_EXECUTABLE} \
   ${EXTRA_BUILD_CONFIGURATION_FLAGS} \
   $ADDITIONAL_COMPONENTS || exit 1

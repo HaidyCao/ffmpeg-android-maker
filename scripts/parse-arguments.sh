@@ -9,7 +9,7 @@
 ABIS_TO_BUILD=()
 API_LEVEL=21
 SOURCE_TYPE=TAR
-SOURCE_VALUE=6.1
+SOURCE_VALUE=6.1.1
 EXTERNAL_LIBRARIES=()
 FFMPEG_GPL_ENABLED=false
 
@@ -123,6 +123,12 @@ for argument in "$@"; do
     ;;
   --enable-libbluray | -bluray)
     EXTERNAL_LIBRARIES+=("libbluray")
+    ;;
+  --enable-libass | -ass)
+    EXTERNAL_LIBRARIES+=("libass")
+    ;;
+  --enable-libharfbuzz | -harfbuzz)
+    EXTERNAL_LIBRARIES+=("libharfbuzz")
     ;; 
   --enable-all-free | -all-free)
     EXTERNAL_LIBRARIES+=" ${SUPPORTED_LIBRARIES_FREE[@]}"
